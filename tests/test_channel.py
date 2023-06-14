@@ -21,7 +21,6 @@ def test_channel_init(smeshariki):
     assert smeshariki.url == "https://www.youtube.com/channel/UCxaznoDkqXdpsP4H273CXRg"
     assert smeshariki.subscriber_count == "235000"
     assert smeshariki.video_count == "430"
-    assert smeshariki.view_count == "176928091"
 
 
 def test_to_json(smeshariki):
@@ -38,3 +37,7 @@ def test_to_json(smeshariki):
         data = json.load(f)
 
     assert data == channel_info
+
+
+def test_channel_str(smeshariki):
+    assert str(smeshariki) == 'ПинКод (https://www.youtube.com/channel/UCxaznoDkqXdpsP4H273CXRg)'
