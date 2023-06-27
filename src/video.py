@@ -2,7 +2,6 @@ import json
 import os
 
 from googleapiclient.discovery import build
-from pytube import Playlist
 
 
 class Video:
@@ -19,17 +18,13 @@ class Video:
         self.statistics = self.video_items[0]['statistics']
 
         self.title = self.video_snippet['title']
-        self.__url = None
+        self.url = 'https://www.youtube.com/watch?v=' + self.__video_id
         self.view_count = self.statistics['viewCount']
         self.like_count = self.statistics['likeCount']
 
     @property
     def video_id(self):
         return self.__video_id
-
-    @property
-    def url(self):
-        return 'https://www.youtube.com/watch?v=' + self.__video_id
 
     def __str__(self):
         return self.title
@@ -47,13 +42,3 @@ class PLVideo(Video):
     @property
     def playlist_id(self):
         return self.__playlist_id
-
-    @property
-    def url(self):
-        link = 'https://www.youtube.com/playlist?list=' + self.__playlist_id
-        link = Playlist(link)
-        for i in link.video_urls:
-            if self.video_id in i:
-                return i
-            else:
-                continue

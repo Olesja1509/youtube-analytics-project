@@ -532,7 +532,18 @@ brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)", "brotlipy (>=0.6.0)"]
 secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "pyOpenSSL (>=0.14)", "urllib3-secure-extra"]
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
+[[package]]
+name = "youtube-dl"
+version = "2021.12.17"
+description = "YouTube video downloader"
+optional = false
+python-versions = "*"
+files = [
+    {file = "youtube_dl-2021.12.17-py2.py3-none-any.whl", hash = "sha256:f1336d5de68647e0364a47b3c0712578e59ec76f02048ff5c50ef1c69d79cd55"},
+    {file = "youtube_dl-2021.12.17.tar.gz", hash = "sha256:bc59e86c5d15d887ac590454511f08ce2c47698d5a82c27bfe27b5d814bbaed2"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "63f7324f806089f89759425eb9a448794e48072c24d6617394f836d3ca1a4875"
+content-hash = "7b038a875a182223979572ccae3d84165b554f46fe0b8276bf8d310cd507b55b"
