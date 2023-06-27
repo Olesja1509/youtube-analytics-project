@@ -69,7 +69,6 @@ class Channel:
         """метод для определения равенства"""
         return int(self.subscriber_count) == int(other.subscriber_count)
 
-
     def to_json(self, file_name):
         """метод, сохраняющий в файл значения атрибутов экземпляра Channel"""
         channel_info = {'channel_id': self.__channel_id, 'title': self.title, 'description': self.description,
