@@ -3,8 +3,9 @@ import os
 from datetime import timedelta
 import operator
 
+import isodate as isodate
 from googleapiclient.discovery import build
-from pytube import Playlist, YouTube, extract
+from pytube import Playlist, extract
 
 
 class PlayList:
@@ -34,13 +35,22 @@ class PlayList:
     @property
     def total_duration(self):
         """Возвращает суммарную длительность плей-листа в формате datetime.timedelta"""
-        sec = 0
+        total_duration = timedelta(hours=0, minutes=0, seconds=0)
+
         link = Playlist(self.url)
         for i in link.video_urls:
-            video_length = YouTube(i).length
-            sec += video_length
-        duration = timedelta(seconds=sec)
-        return duration
+            video_id = extract.video_id(i)
+            video = self.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+                                               id=video_id).execute()
+            duration = video['items'][0]['contentDetails']['duration']
+
+            iso_duration = isodate.parse_duration(duration)
+            duration_split = str(iso_duration).split(':')
+            duration = timedelta(hours=int(duration_split[0]), minutes=int(duration_split[1]),
+                                 seconds=int(duration_split[2]))
+            total_duration += duration
+
+        return total_duration
 
     def show_best_video(self):
         """возвращает ссылку на самое популярное видео из плейлиста (по количеству лайков)"""
