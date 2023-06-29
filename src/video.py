@@ -12,15 +12,22 @@ class Video:
     def __init__(self, video_id) -> None:
         self.__video_id = video_id
 
-        self.video = self.youtube.videos().list(id=self.__video_id, part='snippet,statistics').execute()
-        self.video_items = self.video['items']
-        self.video_snippet = self.video_items[0]['snippet']
-        self.statistics = self.video_items[0]['statistics']
+        try:
+            self.video = self.youtube.videos().list(id=self.__video_id, part='snippet,statistics').execute()
+            self.video_items = self.video['items']
+            self.video_snippet = self.video_items[0]['snippet']
+            self.statistics = self.video_items[0]['statistics']
 
-        self.title = self.video_snippet['title']
-        self.url = 'https://www.youtube.com/watch?v=' + self.__video_id
-        self.view_count = self.statistics['viewCount']
-        self.like_count = self.statistics['likeCount']
+            self.title = self.video_snippet['title']
+            self.url = 'https://www.youtube.com/watch?v=' + self.__video_id
+            self.view_count = self.statistics['viewCount']
+            self.like_count = self.statistics['likeCount']
+
+        except IndexError:
+            self.title = None
+            self.url = None
+            self.view_count = None
+            self.like_count = None
 
     @property
     def video_id(self):
